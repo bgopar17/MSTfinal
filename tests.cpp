@@ -4,6 +4,9 @@
 #include <queue>
 #include <memory>
 #include <limits>
+#include "catch.hpp"
+#include "main.cpp"
+
 
 using namespace std;
 // Function to find the maximum sum of non-adjacent elements in a vector
