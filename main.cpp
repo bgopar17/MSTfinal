@@ -1,3 +1,11 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+#include <memory>
+#include <limits>
+using namespace std;
+
 int main() {
     Graph g(9);
     g.addEdge(0, 1, 4);
@@ -16,6 +24,8 @@ int main() {
     g.addEdge(7, 8, 7);
 
     auto mst = g.findMST();
+    double totalWeight = 0;
+
     for (const auto& e : mst) {
         cout << e.source << " - " << e.destination << " (Weight: " << e.weight << ")\n";
         totalWeight += e.weight;
