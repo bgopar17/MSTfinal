@@ -63,13 +63,13 @@ vector<Edge> findMST(){
         if (inMST[u]) continue;
         inMST[u] = true;
 
-        for (auo& e : vertices[u]->edges) {
+        for (auto& e : vertices[u]->edges) {
             int v = e.destination;
             double w = e.weight;
             if (!inMST[v] && w < key[v]) {
                 key[v] = w;
                 parent[v] = u;
-                pq.push(key[v]. v);
+                pq.push({key[v], v});
             }
         }
     }
