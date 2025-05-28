@@ -5,7 +5,7 @@
 #include <memory>
 #include <limits>
 #include "catch.hpp"
-//#include "main.cpp"
+
 
 
 using namespace std;
@@ -23,7 +23,7 @@ struct Edge {
     }
 };
 
-class Graph {
+class Graph { // Class representing a graph using an adjacency list
 private: 
     struct Vertex{
         int id;
@@ -39,13 +39,13 @@ public:
             vertices.push_back(make_shared<Vertex>(i));
     }
 
-    void addEdge(int u, int v, double w) {
+    void addEdge(int u, int v, double w) { // Function to add an edge between vertices u and v with weight w
         vertices[u]->edges.emplace_back(u, v, w);
         vertices[v]->edges.emplace_back(v, u, w); 
     }
 
 
-vector<Edge> findMST(){
+vector<Edge> findMST(){ // Function to find the Minimum Spanning Tree (MST) using Prim's algorithm
     int n = vertices.size();
     vector<bool> inMST(n, false); // Track vertices included in the MST
     vector<double> key(n, numeric_limits<double>::max()); // Key values to pick minimum weight edge
@@ -56,14 +56,14 @@ vector<Edge> findMST(){
     priority_queue<pii, vector<pii>, greater<pii>> pq;
     pq.push({0,0});
 
-    while(!pq.empty()) {
+    while(!pq.empty()) { // While there are vertices to process
         int u = pq.top().second;
         pq.pop();
 
         if (inMST[u]) continue;
         inMST[u] = true;
 
-        for (auto& e : vertices[u]->edges) {
+        for (auto& e : vertices[u]->edges) {// Iterate through all edges connected to vertex u
             int v = e.destination;
             double w = e.weight;
             if (!inMST[v] && w < key[v]) {
@@ -74,8 +74,8 @@ vector<Edge> findMST(){
         }
     }
 
-    vector<Edge> mst;
-    for (int v = 1; v < n; ++v) {
+    vector<Edge> mst; // Store the edges of the MST
+    for (int v = 1; v < n; ++v) { // Start from vertex 1 as vertex 0 is the root
         if (parent[v] != -1) 
             mst.emplace_back(parent[v], v, key[v]);
     }
